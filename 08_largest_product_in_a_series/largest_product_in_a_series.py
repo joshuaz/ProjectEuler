@@ -9,9 +9,11 @@ def largest_product_in_a_series(num):
         list_of_characters = [x for x in x_digits]
         #make list of characters into ints
         list_of_characters = [int(i) for i in list_of_characters]
+        #get the product of the x characters in the list_of_characters
         product_of_all_characters_in_list_of_characters = 1
         for i in range(0,len(list_of_characters)):
             product_of_all_characters_in_list_of_characters = product_of_all_characters_in_list_of_characters * list_of_characters[i]
+        #check if the product is the highest thus far
         if product_of_all_characters_in_list_of_characters > highest_product_thus_far:
             highest_product_thus_far = product_of_all_characters_in_list_of_characters
             x_digits_producing_highest_product = x_digits
