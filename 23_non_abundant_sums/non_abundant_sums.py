@@ -1,56 +1,33 @@
 import math
 
-# Function to calculate the sum of proper divisors of a number
 def sum_of_divisors(n):
-    s = 1
+    divisors = set([1])
     for i in range(2, int(math.sqrt(n))+1):
         if n % i == 0:
-            s += i
-            if i != n//i:
-                s += n//i
-    return s
+            divisors.add(i)
+            divisors.add(n//i)
+    return sum(divisors)
 
-# Function to find abundant numbers up to a given limit
-def find_abundant_numbers(limit):
-    abundant_numbers = []
-    for n in range(12, limit):
-        if sum_of_divisors(n) > n:
-            abundant_numbers.append(n)
-    return abundant_numbers
+def sumOfNonAbundantNumbers(n):
+    abundant_numbers = set()
+    for i in range(1, n+1):
+        if sum_of_divisors(i) > i:
+            abundant_numbers.add(i)
 
-# Function to check if a number can be written as the sum of two abundant numbers
-def is_sum_of_abundant_numbers(n, abundant_numbers):
-    for i in range(len(abundant_numbers)):
-        if abundant_numbers[i] > n/2:
-            return False
-        if n - abundant_numbers[i] in abundant_numbers:
-            return True
-    return False
+    non_abundant_sums = set(range(1, n+1))
+    for i in abundant_numbers:
+        for j in abundant_numbers:
+            if i + j in non_abundant_sums:
+                non_abundant_sums.remove(i+j)
 
-# Find all abundant numbers up to 28123
-abundant_numbers = find_abundant_numbers(28123)
+    return(sum(non_abundant_sums))
 
-# Find all numbers that cannot be written as the sum of two abundant numbers
-not_sum_of_abundant_numbers = []
-for n in range(1, 28124):
-    if not is_sum_of_abundant_numbers(n, abundant_numbers):
-        not_sum_of_abundant_numbers.append(n)
+#Explanation:
 
-# Calculate the sum of all numbers that cannot be written as the sum of two abundant numbers
-print(sum(not_sum_of_abundant_numbers))
+# The problem requires us to find the sum of all positive integers that cannot be written as the sum of two abundant numbers. An abundant number is a number whose sum of proper divisors is greater than the number itself.
 
-def sumOfNonAbundantNumbers(i):
-    not_sum_of_abundant_numbers = []
-    abundant_numbers = find_abundant_numbers(i)
-    for n in range(1, i+1):
-        if not is_sum_of_abundant_numbers(n, abundant_numbers):
-            not_sum_of_abundant_numbers.append(n)
+# To solve this problem, we first define a function sum_of_divisors(n) that returns the sum of all proper divisors of a given number n. We then create a set abundant_numbers containing all abundant numbers between 1 and 28123 (inclusive). We do this by iterating through each number in that range and checking if its sum of divisors is greater than itself. If it is, we add it to the abundant_numbers set.
 
-    return(sum(not_sum_of_abundant_numbers))
+# Next, we create a set non_abundant_sums containing all integers between 1 and 28123 (inclusive). We then iterate through each pair of abundant numbers and remove their sum from the non_abundant_sums set, since we know that the sum of two abundant numbers is also an abundant number.
 
-
-#The script uses three functions:
-#sum_of_divisors(n): This function calculates the sum of proper divisors of a given number n.
-#find_abundant_numbers(limit): This function finds all abundant numbers up to a given limit. An abundant number is a number whose sum of proper divisors is greater than the number itself.
-#is_sum_of_abundant_numbers(n, abundant_numbers): This function checks if a given number n can be written as the sum of two abundant numbers from a given list of abundant numbers.
-#The main part of the script first finds all abundant numbers up to 28123 using the find_abundant_numbers() function. It then uses the is_sum_of_abundant_numbers() function to find all numbers that cannot be written as the sum of two abundant numbers. Finally, it calculates the sum of all such numbers using the sum() function and prints the result.
+# Finally, we print the sum of all remaining numbers in the non_abundant_sums set, which is the answer to the problem.
