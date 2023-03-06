@@ -47,3 +47,10 @@ def sumOfNonAbundantNumbers(i):
             not_sum_of_abundant_numbers.append(n)
 
     return(sum(not_sum_of_abundant_numbers))
+
+
+#The script uses three functions:
+#sum_of_divisors(n): This function calculates the sum of proper divisors of a given number n.
+#find_abundant_numbers(limit): This function finds all abundant numbers up to a given limit. An abundant number is a number whose sum of proper divisors is greater than the number itself.
+#is_sum_of_abundant_numbers(n, abundant_numbers): This function checks if a given number n can be written as the sum of two abundant numbers from a given list of abundant numbers.
+#The main part of the script first finds all abundant numbers up to 28123 using the find_abundant_numbers() function. It then uses the is_sum_of_abundant_numbers() function to find all numbers that cannot be written as the sum of two abundant numbers. Finally, it calculates the sum of all such numbers using the sum() function and prints the result.
